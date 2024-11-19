@@ -34,9 +34,35 @@ class Parchis:
         return tablero
     
     
-    def avanza_posiciones(self, jugador):
-        Parchis.tira_dados()
+    def avanza_posiciones(self, num):
+        if num == 1:
+            self.fichaJ1 += Parchis.dado1 + Parchis.dado2
+            if self.fichaJ1 > Parchis.TAM_TABLERO:
+                diferencia = self.fichaJ1 - Parchis.TAM_TABLERO
+                self.fichaJ1 = Parchis.TAM_TABLERO - diferencia
+        elif num == 2:
+            self.fichaJ2 += Parchis.dado1 + Parchis.dado2
+            if self.fichaJ2 > Parchis.TAM_TABLERO:
+                diferencia = self.fichaJ2 - Parchis.TAM_TABLERO
+                self.fichaJ2 = Parchis.TAM_TABLERO - diferencia
                 
+    def estado_carrera(self):
+        res = ""
+        if self.fichaJ1 == self.fichaJ2:
+            res = f"{self.nombre1} y {self.nombre2} van empatados."
+        else:
+            res = f"Va ganando {self.nombre1 if self.fichaJ1 > self.fichaJ2 else self.nombre2}."
+        
+        return res
+    
+    def es_ganador(self):
+        ganador = ""
+        if self.fichaJ1 == Parchis.TAM_TABLERO:
+            ganador = self.nombre1
+        elif self.fichaJ2 == Parchis.TAM_TABLERO:
+            ganador = self.nombre2
+            
+        return ganador
 
     def __init__(self, nombre1, nombre2):
         self.fichaJ1 = 0
